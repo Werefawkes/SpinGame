@@ -21,10 +21,15 @@ public class PlayerController : MonoBehaviour, IDamageable
 	[ReadOnly(DisableStyle.OnlyText)]
 	public Vector2 aimInput;
 
-	[SelfFill(hideIfFilled: true)]
+	[SelfFill(true)]
 	public Rigidbody2D rb;
 	[SelfFill(true)]
 	public Camera playerCam;
+
+	private void Start()
+	{
+		GameManager.player = this;
+	}
 
 	private void Update()
 	{

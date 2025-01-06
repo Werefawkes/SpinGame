@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.foxthorne.foxcore": {
+      "version": "https://github.com/Werefawkes/FoxCore.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "bd409f2bc22ec596ce3521368061b10c994914fe"
+    },
     "com.unity.2d.animation": {
       "version": "9.0.4",
       "depth": 1,

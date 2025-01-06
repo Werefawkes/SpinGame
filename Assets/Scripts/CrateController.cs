@@ -14,5 +14,10 @@ public class CrateController : MonoBehaviour, IDamageable
 	{
 		health -= amount;
 		rb.AddForceAtPosition(knockback, hitPosition, ForceMode2D.Impulse);
+
+		if (health <= 0)
+		{
+			Destroy(gameObject);
+		}
 	}
 }

@@ -702,15 +702,21 @@ MonoBehaviour:
     void Increment();\r\n            }\r\n        }\r\n\r\n        [SerializeField]
     SerializableSortedDictionaryExamples serializableSortedDictionaryExamples = new
     SerializableSortedDictionaryExamples();\r\n\r\n        [System.Serializable]\r\n       
-    class SerializableSortedDictionaryExamples\r\n        {\r\n            [Dictionary]
-    //dont forget the attribute!\r\n            public SerializableSortedDictionary<int,
+    class SerializableSortedDictionaryExamples\r\n        {\r\n            [HorizontalLine(\"Integer\")]\r\n\r\n           
+    [Dictionary] //dont forget the attribute!\r\n            public SerializableSortedDictionary<int,
     string> dict1\r\n                = new SerializableSortedDictionary<int, string>();\r\n\r\n           
     [HorizontalLine]\r\n\r\n            [Button(nameof(AddRandomValue))]\r\n           
     [SerializeField, HideField] bool a;\r\n\r\n            void AddRandomValue()\r\n           
     {\r\n                dict1.TryAdd(UnityEngine.Random.Range(-2000, 2000), \"Some
     Random Value\");\r\n                //Access: myDictionary[key] = value\r\n           
-    }\r\n        }\r\n\r\n        [SerializeField] SerializableSetExamples serializableSetExamples
-    = new SerializableSetExamples();\r\n\r\n        [System.Serializable]\r\n       
+    }\r\n\r\n            [HorizontalLine(\"Custom Class\")]\r\n\r\n            [Dictionary]\r\n           
+    public SerializableSortedDictionary<MyClass, string> myBehaviours = new();\r\n\r\n           
+    public class MyClass : MonoBehaviour, IComparable\r\n            {\r\n               
+    // this compare method only works, if all objects have different names\r\n               
+    int IComparable.CompareTo(object obj)\r\n                {\r\n                   
+    return this.name.CompareTo((obj as UnityEngine.Object).name);\r\n               
+    }\r\n            }\r\n        }\r\n\r\n        [SerializeField] SerializableSetExamples
+    serializableSetExamples = new SerializableSetExamples();\r\n\r\n        [System.Serializable]\r\n       
     class SerializableSetExamples\r\n        {\r\n            [Set] //dont forget
     the attribute!\r\n            public SerializableSet<int> set1\r\n               
     = new SerializableSet<int>();\r\n\r\n            [HorizontalLine]\r\n\r\n           
@@ -971,39 +977,39 @@ MonoBehaviour:
       - start: 52262
         end: 52961
       - start: 57631
-        end: 58161
-      - start: 58365
-        end: 59702
-      - start: 59930
-        end: 60364
-      - start: 61123
-        end: 61449
-      - start: 60562
-        end: 60911
-      - start: 61828
-        end: 62236
-      - start: 62444
-        end: 62858
-      - start: 63064
-        end: 63311
-      - start: 63551
-        end: 63992
-      - start: 64184
-        end: 64362
-      - start: 64578
-        end: 64662
-      - start: 64898
-        end: 65055
-      - start: 65287
-        end: 65612
-      - start: 65812
-        end: 65905
-      - start: 66105
-        end: 66258
-      - start: 66466
-        end: 66870
-      - start: 67082
-        end: 67268
+        end: 58727
+      - start: 58931
+        end: 60268
+      - start: 60496
+        end: 60930
+      - start: 61689
+        end: 62015
+      - start: 61128
+        end: 61477
+      - start: 62394
+        end: 62802
+      - start: 63010
+        end: 63424
+      - start: 63630
+        end: 63877
+      - start: 64117
+        end: 64558
+      - start: 64750
+        end: 64928
+      - start: 65144
+        end: 65228
+      - start: 65464
+        end: 65621
+      - start: 65853
+        end: 66178
+      - start: 66378
+        end: 66471
+      - start: 66671
+        end: 66824
+      - start: 67032
+        end: 67436
+      - start: 67648
+        end: 67834
     editor_keyInput: 0
     editor_valueInput:
       start: 0
@@ -1013,7 +1019,7 @@ MonoBehaviour:
     animatorParameterAttributeExamples:
       animatorController: {fileID: 9100000, guid: 3a1cea91d6692bf40b069a1d3b66f1b5, type: 2}
       animator: {fileID: 0}
-      paramName2: NewFloat
+      paramName2: <missing>
       paramName: <missing>
     asButtonAttributeExamples:
       selectableBoolean: 0
@@ -1285,8 +1291,8 @@ MonoBehaviour:
       weight: 0
       amount: 0
       stats:
-        health: 79
-        stamina: 1
+        health: 48
+        stamina: 0.45854485
         speed: 1.3
       sizes:
         _: 0
@@ -1538,6 +1544,19 @@ MonoBehaviour:
         editor_keyInput: 0
         editor_valueInput: abc
       a: 0
+      myBehaviours:
+        info: 0
+        keys:
+          info: 0
+          values:
+            _: 0
+            values: []
+          editor_input: {fileID: 0}
+        values:
+          _: 0
+          values: []
+        editor_keyInput: {fileID: 0}
+        editor_valueInput: 
     serializableSetExamples:
       set1:
         info: 0
