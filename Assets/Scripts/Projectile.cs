@@ -5,25 +5,25 @@ using CustomInspector;
 
 public class Projectile : MonoBehaviour
 {
-	public Vector2 Velocity;
-	public float Duration;
-	public float Damage;
-	public float Knockback;
+	public WeaponSO data;
+	public Vector2 velocity;
+
+	public IShooter owner;
 
 	float bornTime;
 
 	[SelfFill(hideIfFilled:true)]
 	public Rigidbody2D rb;
 
-	private void Start()
+	public virtual void Start()
 	{
-		rb.velocity = Velocity;
+		rb.AddForce(velocity, ForceMode2D.Impulse);
 		bornTime = Time.time;
 	}
 
-	private void Update()
+	public virtual void Update()
 	{
-		if (Time.time >= bornTime + Duration)
+		if (!data.isPersistent && Time.time >= bornTime + data.duration)
 		{
 			Destroy(gameObject);
 		}
@@ -31,14 +31,17 @@ public class Projectile : MonoBehaviour
 
 	public void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.TryGetComponent(out IDamageable d))
+		if (collision.TryGetComponent(out IDamageable d) && d != owner)
 		{
-			//Vector2 kb = collision.transform.position - transform.position;
 			Vector2 kb = rb.velocity;
 			kb.Normalize();
-			kb *= Knockback;
-			d.Damage(Damage, kb, transform.position);
+			kb *= data.knockbackMultiplier;
+			d.Damage(data.damage, kb, transform.position);
 		}
-		Destroy(gameObject);
+
+		if (!data.isPersistent && d != owner)
+		{
+			Destroy(gameObject);
+		}
 	}
 }

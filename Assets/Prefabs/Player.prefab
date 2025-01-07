@@ -310,16 +310,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e2ade1c8feaea747b201b7d78ac0899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 7859072816149790941, guid: 1dab3b2bb89072a47b78e284b9fc2677, type: 3}
-  bulletSpeed: 5
-  bulletDuration: 10
-  bulletDamage: 1
+  currentWeapon: {fileID: 0}
+  isAttacking: 0
   pointer: {fileID: 5662880432285133861}
   pointerAngleOffset: 90
   speed: 5
   moveInput: {x: 0, y: 0}
   aimInput: {x: 0, y: 0}
   rb: {fileID: 8706675657751269954}
+  playerCam: {fileID: 1449371756688054196}
 --- !u!50 &8706675657751269954
 Rigidbody2D:
   serializedVersion: 4

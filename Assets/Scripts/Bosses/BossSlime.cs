@@ -17,6 +17,7 @@ public class BossSlime : BossController
 		base.Start();
 
 		transform.localScale = new(scale, scale);
+		rb.mass = scale;
 	}
 
 	private void Update()

@@ -13,8 +13,14 @@ MonoBehaviour:
   m_Name: TestWeapon
   m_EditorClassIdentifier: 
   damage: 1
-  speed: 10
-  duration: 10
-  cooldown: 0.5
   knockback: 1
+  speed: 10
+  cooldown: 0.5
+  firingArc: 5
+  duration: 10
+  isPersistent: 0
+  maxCount: -1
+  isOrbiter: 0
+  orbitDistance: 3
+  orbitMaxOnly: 0
   prefab: {fileID: 7859072816149790941, guid: 1dab3b2bb89072a47b78e284b9fc2677, type: 3}

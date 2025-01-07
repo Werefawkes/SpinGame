@@ -1074,8 +1074,8 @@ MonoBehaviour:
       integer: 1
       name: Bob
     foldoutAttributeExamples:
-      scriptable1: {fileID: 0}
-      scriptable2: {fileID: 0}
+      scriptable1: {fileID: 11400000, guid: 4d99f29770966ca4cb11d95f9c176073, type: 2}
+      scriptable2: {fileID: 11400000, guid: 4d99f29770966ca4cb11d95f9c176073, type: 2}
       anyMonoBehaviour: {fileID: 0}
     forceFillAttributeExamples:
       gob1: {fileID: 0}

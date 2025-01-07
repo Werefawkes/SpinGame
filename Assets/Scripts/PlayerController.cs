@@ -4,27 +4,33 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using CustomInspector;
 
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : MonoBehaviour, IDamageable, IShooter
 {
+	[HorizontalLine("Stats"), Foldout]
 	public WeaponSO currentWeapon;
-	float cooldownEnd;
+	float primaryCooldownEnd, secondaryCooldownEnd;
 
-	public bool isAttacking = false;
+	public float speed = 1;
 
+	[HorizontalLine("References", color: FixedColor.Black)]
+	[ForceFill]
+	public Camera playerCam;
+	[SelfFill(true)]
+	public Rigidbody2D rb;
 	[ForceFill]
 	public Transform pointer;
 	public float pointerAngleOffset = 90;
 
-	public float speed = 1;
-	[ReadOnly(DisableStyle.OnlyText)]
-	public Vector2 moveInput;
-	[ReadOnly(DisableStyle.OnlyText)]
-	public Vector2 aimInput;
+	[HorizontalLine]
+	[ReadOnly]
+	public Vector2 moveInput, aimInput;
+	[ReadOnly]
+	public bool isPrimaryActionHeld = false, isSecondaryActionHeld = false;
 
-	[SelfFill(true)]
-	public Rigidbody2D rb;
-	[SelfFill(true)]
-	public Camera playerCam;
+	// interface
+	public Vector3 ProjectileOrigin { get { return pointer.transform.position; } }
+	public Vector2 AimDirection { get { return aimInput; } }
+	public Rigidbody2D Rigidbody { get { return rb; } }
 
 	private void Start()
 	{
@@ -46,23 +52,38 @@ public class PlayerController : MonoBehaviour, IDamageable
 		}
 
 		// Attack
-		if (isAttacking && Time.time >= cooldownEnd)
+		if (isPrimaryActionHeld && Time.time >= primaryCooldownEnd)
 		{
-			Attack();
+			PrimaryAttack();
+		}
+
+		if (isSecondaryActionHeld && Time.time >= secondaryCooldownEnd)
+		{
+			SecondaryAttack();
 		}
 	}
+
 	public void Damage(float amount, Vector2 knockback, Vector2 hitPosition)
 	{
 		Debug.Log("Took damage of amount " + amount);
 		rb.AddForce(knockback, ForceMode2D.Impulse);
 	}
 
-	public void Attack()
+	void PrimaryAttack()
 	{
-		if (Time.time >= cooldownEnd)
+		if (Time.time >= primaryCooldownEnd)
 		{
-			currentWeapon.SpawnProjectile(pointer.transform.position, aimInput);
-			cooldownEnd = Time.time + currentWeapon.cooldown;
+			currentWeapon.PrimaryAction(this);
+			primaryCooldownEnd = Time.time + currentWeapon.primaryCooldown;
+		}
+	}
+
+	void SecondaryAttack()
+	{
+		if (Time.time >= secondaryCooldownEnd)
+		{
+			currentWeapon.SecondaryAction(this);
+			secondaryCooldownEnd = Time.time + currentWeapon.secondaryCooldown;
 		}
 	}
 
@@ -84,9 +105,13 @@ public class PlayerController : MonoBehaviour, IDamageable
 		aimInput = val.Get<Vector2>();
 	}
 
-	public void OnFire(InputValue val)
+	public void OnPrimaryAction(InputValue val)
 	{
-		isAttacking = val.Get<float>() == 1;
+		isPrimaryActionHeld = val.Get<float>() == 1;
+	}
+	public void OnSecondaryAction(InputValue val)
+	{
+		isSecondaryActionHeld = val.Get<float>() == 1;
 	}
 	#endregion
 
