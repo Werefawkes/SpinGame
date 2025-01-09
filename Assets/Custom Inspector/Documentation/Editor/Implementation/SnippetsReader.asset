@@ -1231,7 +1231,7 @@ MonoBehaviour:
       noRichText: We are <color=green><b>not</b></color> sad.
     sceneAttributeExamples:
       gameScene: 0
-      startScene: Assets/Custom-Inspector-Internal/Custom Inspector/Demo/CI_DemoScene.unity
+      startScene: Assets/Scenes/SampleScene.unity
       _: 0
     selfFillAttributeExamples:
       cam: {fileID: 0}
@@ -1249,13 +1249,13 @@ MonoBehaviour:
       headColor: {r: 1, g: 1, b: 1, a: 1}
       bodyColor: {r: 0, g: 0, b: 0, a: 1}
       condition1: 1
-      condition2: 0
+      condition2: 1
       cond1True: {fileID: 0}
       someText: both conditions are true
       material: {fileID: 0}
       tiling: {x: 0, y: 0}
       a: 0
-      b: 1
+      b: 0
       info: both are the same
       toggle1: 0
       float1: 0

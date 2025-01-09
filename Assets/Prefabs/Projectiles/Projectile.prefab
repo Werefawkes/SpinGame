@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 5869507107748401158}
   - component: {fileID: 747550207540773760}
   - component: {fileID: 599121547653843379}
+  - component: {fileID: 8973636546786422665}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -131,10 +132,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e584a5a2aa83be94d82e6f812cf85a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  data: {fileID: 0}
   velocity: {x: 0, y: 0}
   owner: {fileID: 0}
   rb: {fileID: 747550207540773760}
+  distanceJoint: {fileID: 8973636546786422665}
 --- !u!50 &747550207540773760
 Rigidbody2D:
   serializedVersion: 4
@@ -197,3 +199,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!232 &8973636546786422665
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7859072816149790941}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 0
+  m_Distance: 1
+  m_MaxDistanceOnly: 0

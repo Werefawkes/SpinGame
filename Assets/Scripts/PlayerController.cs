@@ -4,11 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using CustomInspector;
 
-public class PlayerController : MonoBehaviour, IDamageable, IShooter
+public class PlayerController : MonoBehaviour, IDamageable
 {
-	[HorizontalLine("Stats"), Foldout]
-	public WeaponSO currentWeapon;
-	float primaryCooldownEnd, secondaryCooldownEnd;
+	[HorizontalLine("Stats")]
 
 	public float speed = 1;
 
@@ -17,13 +15,16 @@ public class PlayerController : MonoBehaviour, IDamageable, IShooter
 	public Camera playerCam;
 	[SelfFill(true)]
 	public Rigidbody2D rb;
+	[SelfFill(true)]
+	public Shooter shooter;
 	[ForceFill]
 	public Transform pointer;
 	public float pointerAngleOffset = 90;
 
-	[HorizontalLine]
+	[HorizontalLine, ReadOnly]
+	public Vector2 moveInput;
 	[ReadOnly]
-	public Vector2 moveInput, aimInput;
+	public Vector2 aimInput;
 	[ReadOnly]
 	public bool isPrimaryActionHeld = false, isSecondaryActionHeld = false;
 
@@ -49,17 +50,8 @@ public class PlayerController : MonoBehaviour, IDamageable, IShooter
 			Vector3 angles = Vector3.zero;
 			angles.z = Vector2.SignedAngle(transform.up, aimInput) + pointerAngleOffset;
 			pointer.localEulerAngles = angles;
-		}
 
-		// Attack
-		if (isPrimaryActionHeld && Time.time >= primaryCooldownEnd)
-		{
-			PrimaryAttack();
-		}
-
-		if (isSecondaryActionHeld && Time.time >= secondaryCooldownEnd)
-		{
-			SecondaryAttack();
+			shooter.aimDirection = aimInput;
 		}
 	}
 
@@ -67,24 +59,6 @@ public class PlayerController : MonoBehaviour, IDamageable, IShooter
 	{
 		Debug.Log("Took damage of amount " + amount);
 		rb.AddForce(knockback, ForceMode2D.Impulse);
-	}
-
-	void PrimaryAttack()
-	{
-		if (Time.time >= primaryCooldownEnd)
-		{
-			currentWeapon.PrimaryAction(this);
-			primaryCooldownEnd = Time.time + currentWeapon.primaryCooldown;
-		}
-	}
-
-	void SecondaryAttack()
-	{
-		if (Time.time >= secondaryCooldownEnd)
-		{
-			currentWeapon.SecondaryAction(this);
-			secondaryCooldownEnd = Time.time + currentWeapon.secondaryCooldown;
-		}
 	}
 
 	#region Input methods
@@ -96,6 +70,7 @@ public class PlayerController : MonoBehaviour, IDamageable, IShooter
 	public void OnPoint(InputValue val)
 	{
 		Vector3 pos = Camera.main.ScreenToWorldPoint(val.Get<Vector2>());
+		shooter.targetPosititon = pos;
 		Vector2 dir = pos - transform.position;
 		aimInput = dir.normalized;
 	}
@@ -108,11 +83,11 @@ public class PlayerController : MonoBehaviour, IDamageable, IShooter
 	public void OnPrimaryAction(InputValue val)
 	{
 		isPrimaryActionHeld = val.Get<float>() == 1;
+		shooter.isAttacking = isPrimaryActionHeld;
 	}
 	public void OnSecondaryAction(InputValue val)
 	{
 		isSecondaryActionHeld = val.Get<float>() == 1;
 	}
 	#endregion
-
 }

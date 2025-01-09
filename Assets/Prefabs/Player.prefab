@@ -270,6 +270,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6219485559361847039}
   - component: {fileID: 682699595234093770}
+  - component: {fileID: 8674242271467458419}
   - component: {fileID: 8706675657751269954}
   - component: {fileID: 4073548257757902383}
   - component: {fileID: 1832881805695754182}
@@ -310,15 +311,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e2ade1c8feaea747b201b7d78ac0899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 0}
-  isAttacking: 0
+  speed: 5
+  playerCam: {fileID: 1449371756688054196}
+  rb: {fileID: 8706675657751269954}
+  shooter: {fileID: 8674242271467458419}
   pointer: {fileID: 5662880432285133861}
   pointerAngleOffset: 90
-  speed: 5
   moveInput: {x: 0, y: 0}
   aimInput: {x: 0, y: 0}
+  isPrimaryActionHeld: 0
+  isSecondaryActionHeld: 0
+--- !u!114 &8674242271467458419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6319880767705596414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b620158683d3ea4b83500434594be84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 11400000, guid: 4d99f29770966ca4cb11d95f9c176073, type: 2}
+  isAttacking: 0
+  projectileOrigin: {fileID: 5662880432285133861}
+  aimDirection: {x: 0, y: 0}
   rb: {fileID: 8706675657751269954}
-  playerCam: {fileID: 1449371756688054196}
 --- !u!50 &8706675657751269954
 Rigidbody2D:
   serializedVersion: 4
@@ -331,7 +350,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
