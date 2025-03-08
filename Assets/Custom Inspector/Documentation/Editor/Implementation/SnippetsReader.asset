@@ -1046,7 +1046,7 @@ MonoBehaviour:
       _bool: 0
       _number: 0
     colorPaletteAttributeExamples:
-      myImageColor1: {r: 0.01, g: 0.36, b: 0.59, a: 1}
+      myImageColor1: {r: 0.7, g: 0.8, b: 0.88, a: 1}
       myImageColor2: {r: 0.7, g: 0.8, b: 0.88, a: 1}
       alternativeColor1: {r: 0, g: 1, b: 0.88, a: 1}
       alternativeColor2: {r: 1, g: 1, b: 0, a: 1}
@@ -1173,7 +1173,7 @@ MonoBehaviour:
     maskAttributeExamples:
       myInt: 5
       rc: 0
-      ability: 3
+      ability: -1
       FreezePosition: 0
     maxAttributeExamples:
       _int: 10
@@ -1188,8 +1188,8 @@ MonoBehaviour:
       abc: 0
     min2AttributeExamples:
       _int: 10
-      minimum: 0
-      maximum: 0
+      minimum: 7.04
+      maximum: 14.89
       myCappedValue: 152
       stringMin: 78
       minVector: {x: 11, y: 32, z: 9}

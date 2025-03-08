@@ -17,7 +17,7 @@ MonoBehaviour:
   speed: 10
   firingArc: 5
   duration: 10
-  cooldown: 0.1
+  cooldown: 0.2
   drag: 0
   isPersistent: 0
   maxCount: -1
@@ -29,4 +29,8 @@ MonoBehaviour:
   flailDistanceDelta: 2
   flailDragDelta: 2
   flailYankForce: 5
+  volume: 1
+  pitchRange: {x: 0.9, y: 1.1}
+  fireSounds:
+  - {fileID: 8300000, guid: b29a0616c6a75aa4dbdeaa331707b9e9, type: 3}
   prefab: {fileID: 7859072816149790941, guid: 1dab3b2bb89072a47b78e284b9fc2677, type: 3}

@@ -1,24 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using CustomInspector;
 
+
 public class PlayerController : MonoBehaviour, IDamageable
 {
 	[HorizontalLine("Stats")]
-
-	public float speed = 1;
+	public float currentHealth = 20;
 
 	[HorizontalLine("References", color: FixedColor.Black)]
-	[ForceFill]
-	public Camera playerCam;
-	[SelfFill(true)]
-	public Rigidbody2D rb;
-	[SelfFill(true)]
-	public Shooter shooter;
-	[ForceFill]
-	public Transform pointer;
+	[ForceFill]	public Camera playerCam;
+	[SelfFill(true)] public Rigidbody2D rb;
+	[SelfFill(true)] public Shooter shooter;
+	[SelfFill(true)] public CharacterStats stats;
+	[ForceFill] public Transform pointer;
+	public Transform crosshair;
 	public float pointerAngleOffset = 90;
 
 	[HorizontalLine, ReadOnly]
@@ -36,12 +35,13 @@ public class PlayerController : MonoBehaviour, IDamageable
 	private void Start()
 	{
 		GameManager.player = this;
+		currentHealth = stats.maxHealth;
 	}
 
 	private void Update()
 	{
 		// Movement
-		rb.velocity = speed * moveInput;
+		rb.linearVelocity = stats.moveSpeed * moveInput;
 
 		// Aim
 		if (aimInput != Vector2.zero)
@@ -70,9 +70,15 @@ public class PlayerController : MonoBehaviour, IDamageable
 	public void OnPoint(InputValue val)
 	{
 		Vector3 pos = Camera.main.ScreenToWorldPoint(val.Get<Vector2>());
+		pos.z = 0;
 		shooter.targetPosititon = pos;
 		Vector2 dir = pos - transform.position;
 		aimInput = dir.normalized;
+
+		if (crosshair)
+		{
+			crosshair.transform.position = pos;
+		}
 	}
 
 	public void OnAim(InputValue val)

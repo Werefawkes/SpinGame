@@ -23,6 +23,16 @@ public class EnemyController : MonoBehaviour, IDamageable
 		healthbar.fillAmount = 1;
 	}
 
+	public virtual void Update()
+	{
+		// Move towards the player
+		if (GameManager.player)
+		{
+			Vector2 dir = GameManager.player.transform.position - transform.position;
+			rb.AddForce(dir.normalized * speed);
+		}
+	}
+
 	public void Damage(float amount, Vector2 knockback, Vector2 hitPosition)
 	{
 		currentHealth -= amount;

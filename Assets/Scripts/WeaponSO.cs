@@ -37,6 +37,11 @@ public class WeaponSO : ScriptableObject
 	[Tooltip("The force with which the flail will be yanked when starting to spin after a launch."), ShowIfIs(nameof(projectileBehaviour), ProjectileBehaviour.Flail)]
 	public float flailYankForce = 5;
 
+	[HorizontalLine("Audio")]
+	public float volume = 1;
+	[AsRange(0, 2)] public Vector2 pitchRange = new(0.75f, 1.25f);
+	public AudioClip[] fireSounds;
+	
 	public enum ProjectileBehaviour
 	{
 		Simple,

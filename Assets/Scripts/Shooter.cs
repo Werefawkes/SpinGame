@@ -12,8 +12,12 @@ public class Shooter : MonoBehaviour
 
 	public List<Projectile> projectiles;
 
+	[HorizontalLine("Audio")]
+	public float volumeMultiplier = 1;
+
 	[HorizontalLine("References")]
 	public Transform projectileOrigin;
+	[SelfFill(true)] public AudioPlayer audioPlayer;
 
 	[SelfFill(true)]
 	public Rigidbody2D rb;
@@ -51,7 +55,7 @@ public class Shooter : MonoBehaviour
 				foreach (Projectile p in projectiles)
 				{
 					Vector2 targetDir = (targetPosititon - (Vector2)p.transform.position).normalized;
-					Vector2 dir = p.rb.velocity.normalized;
+					Vector2 dir = p.rb.linearVelocity.normalized;
 					//Debug.Log(Vector2.)
 					if (Vector2.Angle(targetDir, dir) <= weapon.firingArc)
 					{
@@ -75,15 +79,17 @@ public class Shooter : MonoBehaviour
 
 	void PrimaryActionBegin()
 	{
-		// Spawn projectiles
-		if (weapon.maxCount < 0 || projectiles.Count < weapon.maxCount)
-		{
-			SpawnProjectile();
-		}
+		//// Spawn projectiles
+		//if (weapon.maxCount < 0 || projectiles.Count < weapon.maxCount)
+		//{
+		//	SpawnProjectile();
+		//}
+
+		if (weapon.IsFlail)
 		{
 			foreach (Projectile p in projectiles)
 			{
-				p.rb.drag = 0;
+				p.rb.linearDamping = 0;
 
 				Vector2 dir = transform.position - p.transform.position;
 				p.rb.AddForce(dir * weapon.flailYankForce, ForceMode2D.Impulse);
@@ -93,6 +99,12 @@ public class Shooter : MonoBehaviour
 
 	void PrimaryAction()
 	{
+		// Spawn projectiles
+		if (weapon.maxCount < 0 || projectiles.Count < weapon.maxCount)
+		{
+			SpawnProjectile();
+		}
+
 		if (weapon.IsFlail)
 		{
 			foreach (Projectile p in projectiles)
@@ -113,7 +125,7 @@ public class Shooter : MonoBehaviour
 		{
 			foreach (Projectile p in projectiles)
 			{
-				p.rb.drag = Mathf.Lerp(p.rb.drag, weapon.drag, weapon.flailDragDelta * Time.deltaTime);
+				p.rb.linearDamping = Mathf.Lerp(p.rb.linearDamping, weapon.drag, weapon.flailDragDelta * Time.deltaTime);
 				p.distanceJoint.distance = weapon.flailLaunchDistance;
 			}
 		}
@@ -125,11 +137,14 @@ public class Shooter : MonoBehaviour
 		p.data = weapon;
 		p.owner = this;
 
-		p.rb.drag = 0;
+		p.rb.linearDamping = 0;
 
 		float angle = Random.Range(-weapon.firingArc / 2, weapon.firingArc / 2);
 		Vector2 dir = RotateBy(aimDirection, angle);
 		p.velocity = dir * weapon.speed;
+
+		// Audio
+		audioPlayer.PlayRandom(weapon.fireSounds, weapon.pitchRange);
 
 		return p;
 	}

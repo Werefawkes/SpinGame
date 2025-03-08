@@ -27,7 +27,10 @@ public class Projectile : MonoBehaviour
 		bornTime = Time.time;
 
 		distanceJoint.enabled = data.IsFlail;
-		lineRenderer.enabled = data.IsFlail;
+		if (data.IsFlail) 
+		{ 
+			lineRenderer.enabled = data.IsFlail;
+		}
 
 		distanceJoint.connectedBody = owner.rb;
 		distanceJoint.distance = data.orbitDistance;
@@ -55,7 +58,7 @@ public class Projectile : MonoBehaviour
 	{
 		if (collision.TryGetComponent(out IDamageable d) && d as Object != owner)
 		{
-			Vector2 kb = rb.velocity;
+			Vector2 kb = rb.linearVelocity;
 			kb.Normalize();
 			kb *= data.knockbackMultiplier;
 			d.Damage(data.damage, kb, transform.position);

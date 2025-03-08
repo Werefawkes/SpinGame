@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b6911e24843c14393cc9b16bd2e7f6, type: 3}
   m_Name: WeaponFlail
   m_EditorClassIdentifier: 
-  damage: 1
-  knockbackMultiplier: 1
+  damage: 2
+  knockbackMultiplier: 5
   speed: 5
-  firingArc: 0
+  firingArc: 5
   duration: 10
   cooldown: 0
   drag: 5
