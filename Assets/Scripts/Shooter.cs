@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CustomInspector;
+using Mirror;
+using ReadOnlyAttribute = CustomInspector.ReadOnlyAttribute;
 
-public class Shooter : MonoBehaviour
+public class Shooter : NetworkBehaviour
 {
 	[HorizontalLine("Shooter")]
 	[Foldout]
@@ -79,12 +81,6 @@ public class Shooter : MonoBehaviour
 
 	void PrimaryActionBegin()
 	{
-		//// Spawn projectiles
-		//if (weapon.maxCount < 0 || projectiles.Count < weapon.maxCount)
-		//{
-		//	SpawnProjectile();
-		//}
-
 		if (weapon.IsFlail)
 		{
 			foreach (Projectile p in projectiles)
@@ -133,18 +129,28 @@ public class Shooter : MonoBehaviour
 
 	public Projectile SpawnProjectile()
 	{
-		Projectile p = Instantiate(weapon.prefab, projectileOrigin.position, Quaternion.identity).GetComponent<Projectile>();
+		GameObject go = Instantiate(weapon.prefab, projectileOrigin.position, Quaternion.identity);
+		Projectile p = go.GetComponent<Projectile>();
 		p.data = weapon;
 		p.owner = this;
 
 		p.rb.linearDamping = 0;
 
+		// Get firing angle
 		float angle = Random.Range(-weapon.firingArc / 2, weapon.firingArc / 2);
 		Vector2 dir = RotateBy(aimDirection, angle);
+
+		if (weapon.IsOrbiter)
+		{
+			dir = Vector2.Perpendicular(dir);
+		}
+
 		p.velocity = dir * weapon.speed;
 
 		// Audio
 		audioPlayer.PlayRandom(weapon.fireSounds, weapon.pitchRange);
+
+		NetworkServer.Spawn(go);
 
 		return p;
 	}

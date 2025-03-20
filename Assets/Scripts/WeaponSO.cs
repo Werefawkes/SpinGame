@@ -14,6 +14,24 @@ public class WeaponSO : ScriptableObject
 	public float cooldown = 0.5f;
 	public float drag = 0;
 
+	[HorizontalLine("Ammo")]
+	public AmmoBehaviour isAmmoInfinte = AmmoBehaviour.Finite;
+	public int magazineSize = 30;
+	public int reserveSize = 200;
+
+	[HorizontalLine("Aiming")]
+	public bool canAim = true;
+	[Tooltip("The FOV in degrees when aiming down the sights of the weapon.")]
+	public float aimFOV = 45;
+	public float aimDistanceMultiplier = 2;
+
+	public enum AmmoBehaviour
+	{
+		Finite = 0,
+		InfiniteReserve = 1,
+		InfiniteMag = 2
+	}
+
 	[HorizontalLine("Behaviour")]
 	[Tooltip("If checked, the projectile will not be destroyed on collisions or when expiring.")]
 	public bool isPersistent = false;

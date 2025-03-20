@@ -10,7 +10,7 @@ public class CrateController : MonoBehaviour, IDamageable
 	[SelfFill]
 	public Rigidbody2D rb;
 
-	public void Damage(float amount, Vector2 knockback, Vector2 hitPosition)
+	public void TakeDamage(float amount, Vector2 knockback, Vector2 hitPosition)
 	{
 		health -= amount;
 		rb.AddForceAtPosition(knockback, hitPosition, ForceMode2D.Impulse);

@@ -1,57 +1,76 @@
 ﻿using UnityEngine;
 using CustomInspector;
+using Mirror;
 
 public class FOVEffect : MonoBehaviour
 {
-	[Header("Game")]
-	public float viewDistance;
+	public float lerpSpeed = 0.5f;
+	public float targetViewDistance;
+	float currentViewDistance;
 
-	[Header("Technical")]
-	public int rayCount = 8;
 	[Range(0, 360)]
-	public float fov = 360;
+	public float targetFOV = 360;
+	float currentFOV;
 
+	public int rayCount = 8;
 	public Vector2 origin;
+	public float lookAngle = 0;
 
 	public LayerMask layerMask;
 
 	Mesh mesh;
 
-	[HorizontalLine("Rendering")]
-	public ComputeShader shader;
-	public RenderTexture renderTexture;
 
 	void Start()
 	{
 		mesh = new Mesh();
 		GetComponent<MeshFilter>().mesh = mesh;
-		shader.SetTexture(shader.FindKernel("CSMain"), "Result", renderTexture);
 	}
 
 	void LateUpdate()
 	{
+		if (GameManager.localPlayer)
+		{
+			PlayerController lp = GameManager.localPlayer;
+			origin = lp.transform.position;
+			lookAngle = Vector2.SignedAngle(Vector2.right, lp.AimDirection);
+
+			if (lp.isSecondaryActionHeld)
+			{
+				targetFOV = lp.shooter.weapon.aimFOV;
+				targetViewDistance = lp.stats.sightDistance * lp.shooter.weapon.aimDistanceMultiplier;
+			}
+			else
+			{
+				targetFOV = lp.stats.fieldOfView;
+				targetViewDistance = lp.stats.sightDistance;
+			}
+		}
+
+		currentViewDistance = Mathf.Lerp(currentViewDistance, targetViewDistance, lerpSpeed * Time.deltaTime);
+		currentFOV = Mathf.Lerp(currentFOV, targetFOV, lerpSpeed * Time.deltaTime);
+
 		Vector3[] vertices = new Vector3[rayCount + 2];
 		Vector2[] uv = new Vector2[vertices.Length];
 		int[] triangles = new int[rayCount * 3];
 
-		float angle = 0;
-		float angleIncrease = fov / rayCount;
+		float angle = lookAngle + (currentFOV / 2);
+		float angleStep = currentFOV / rayCount;
 
 		vertices[0] = origin;
-		//int mask = LayerMask.GetMask(layerMask);
 
 		int vertexIndex = 1;
 		int triangleIndex = 0;
+
 		for (int i = 0; i <= rayCount; i++)
 		{
 			Vector2 vector = new(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-
-			RaycastHit2D hit = Physics2D.Raycast(origin, vector, viewDistance, layerMask);
+			RaycastHit2D hit = Physics2D.Raycast(origin, vector, currentViewDistance, layerMask);
 
 			Vector3 vertex;
 			if (hit.collider == null)
 			{
-				vertex = origin + vector * viewDistance;
+				vertex = origin + vector * currentViewDistance;
 			}
 			else
 			{
@@ -71,7 +90,7 @@ public class FOVEffect : MonoBehaviour
 
 			vertexIndex++;
 
-			angle -= angleIncrease;
+			angle -= angleStep;
 		}
 
 		mesh.vertices = vertices;

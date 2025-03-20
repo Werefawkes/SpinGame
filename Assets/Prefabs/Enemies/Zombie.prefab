@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2331110589537108273}
   - component: {fileID: 5956038989928083885}
   - component: {fileID: 5303074197020903081}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,9 @@ GameObject:
   - component: {fileID: 2710543323697785202}
   - component: {fileID: 4368570536753120672}
   - component: {fileID: 2339650376474017115}
-  m_Layer: 0
+  - component: {fileID: 8012586191564742888}
+  - component: {fileID: 468726531200354302}
+  m_Layer: 8
   m_Name: Zombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,6 +155,8 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 0
   speed: 0.5
+  damage: 1
+  knockback: 1
   rb: {fileID: 4368570536753120672}
   healthbar: {fileID: 8672781460316129553}
 --- !u!50 &4368570536753120672
@@ -218,6 +222,57 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &8012586191564742888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001107006388707507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 3532390380
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
+--- !u!114 &468726531200354302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001107006388707507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 536422141940753135}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  onlySyncOnChange: 1
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  timelineOffset: 1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChangeCorrectionMultiplier: 2
+  useFixedUpdate: 0
+  rotationSensitivity: 0.01
+  positionPrecision: 0.01
+  scalePrecision: 0.01
 --- !u!1 &3096064625341066212
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7160508984670808238}
   - component: {fileID: 6584229867490109162}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +371,7 @@ GameObject:
   - component: {fileID: 5548644426251482226}
   - component: {fileID: 8455870466314565929}
   - component: {fileID: 2006512953350078411}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -392,7 +447,7 @@ GameObject:
   - component: {fileID: 8457650188454931854}
   - component: {fileID: 2329259247976422713}
   - component: {fileID: 8672781460316129553}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

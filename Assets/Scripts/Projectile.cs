@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
 		rb.AddForce(velocity, ForceMode2D.Impulse);
 		bornTime = Time.time;
 
-		distanceJoint.enabled = data.IsFlail;
+		distanceJoint.enabled = data.IsFlail || data.IsOrbiter;
 		if (data.IsFlail) 
 		{ 
 			lineRenderer.enabled = data.IsFlail;
@@ -61,7 +61,7 @@ public class Projectile : MonoBehaviour
 			Vector2 kb = rb.linearVelocity;
 			kb.Normalize();
 			kb *= data.knockbackMultiplier;
-			d.Damage(data.damage, kb, transform.position);
+			d.TakeDamage(data.damage, kb, transform.position);
 		}
 
 		if (!data.isPersistent && d as Object != owner)
