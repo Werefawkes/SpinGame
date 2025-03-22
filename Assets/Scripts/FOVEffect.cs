@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using CustomInspector;
 using Mirror;
+using ReadOnlyAttribute = CustomInspector.ReadOnlyAttribute;
 
 public class FOVEffect : MonoBehaviour
 {
@@ -12,8 +13,13 @@ public class FOVEffect : MonoBehaviour
 	public float targetFOV = 360;
 	float currentFOV;
 
+	[LineGraph]
+	public LineGraph cameraLerpPerViewDistance;
+
 	public int rayCount = 8;
+	[ReadOnly]
 	public Vector2 origin;
+	[ReadOnly]
 	public float lookAngle = 0;
 
 	public LayerMask layerMask;
@@ -45,6 +51,8 @@ public class FOVEffect : MonoBehaviour
 				targetFOV = lp.stats.fieldOfView;
 				targetViewDistance = lp.stats.sightDistance;
 			}
+
+			lp.cameraLerpStep = cameraLerpPerViewDistance.GetYValue(currentViewDistance);
 		}
 
 		currentViewDistance = Mathf.Lerp(currentViewDistance, targetViewDistance, lerpSpeed * Time.deltaTime);

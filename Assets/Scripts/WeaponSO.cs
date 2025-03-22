@@ -4,20 +4,26 @@ using UnityEngine;
 [CreateAssetMenu]
 public class WeaponSO : ScriptableObject
 {
-
-	[HorizontalLine("Stats")]
+	[HorizontalLine("Projectile")]
 	public float damage = 1;
 	public float knockbackMultiplier = 1;
 	public float speed = 10;
-	public float firingArc = 5;
 	public float duration = 10;
 	public float cooldown = 0.5f;
 	public float drag = 0;
+
+	[HorizontalLine("Shooting")]
+	public bool isFullAuto = true;
+	[AsRange(0, 180)]
+	public Vector2 firingAngle;
+	public float recoil = 1;
+	public float recovery = 0.5f;
 
 	[HorizontalLine("Ammo")]
 	public AmmoBehaviour isAmmoInfinte = AmmoBehaviour.Finite;
 	public int magazineSize = 30;
 	public int reserveSize = 200;
+	public float reloadTime = 2;
 
 	[HorizontalLine("Aiming")]
 	public bool canAim = true;
@@ -59,6 +65,8 @@ public class WeaponSO : ScriptableObject
 	public float volume = 1;
 	[AsRange(0, 2)] public Vector2 pitchRange = new(0.75f, 1.25f);
 	public AudioClip[] fireSounds;
+	public AudioClip reloadSound;
+	public AudioClip emptySound;
 	
 	public enum ProjectileBehaviour
 	{

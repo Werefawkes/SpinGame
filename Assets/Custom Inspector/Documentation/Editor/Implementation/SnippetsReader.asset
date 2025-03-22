@@ -1535,12 +1535,16 @@ MonoBehaviour:
           info: 0
           values:
             _: 0
-            values: 00000000
+            values: 98f9ffff47fdffff000000002f020000e4040000
           editor_input: 0
         values:
           _: 0
           values:
+          - Some Random Value
+          - Some Random Value
           - abc
+          - Some Random Value
+          - Some Random Value
         editor_keyInput: 0
         editor_valueInput: abc
       a: 0

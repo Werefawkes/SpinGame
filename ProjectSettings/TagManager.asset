@@ -15,7 +15,7 @@ TagManager:
   - Mask
   - BehindMask
   - Black
-  - 
+  - BlockMove
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 3776135779
+    locked: 0
+  - name: HUD
+    uniqueID: 3178613055
     locked: 0
   m_RenderingLayers:
   - Default

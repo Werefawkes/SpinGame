@@ -25,7 +25,7 @@ public class PlayerController : NetworkBehaviour, IDamageable
 	[SelfFill(true)] public CharacterStats stats;
 	[SelfFill(true)] public PlayerInput input;
 	[ForceFill] public Transform pointer;
-	public Transform crosshair;
+	[ForceFill] public CrosshairController crosshair;
 
 	[HorizontalLine, ReadOnly]
 	public Vector2 moveInput;
@@ -75,6 +75,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
 
 			shooter.aimDirection = aimInput;
 		}
+
+		Point(screenPos);
 	}
 
 	private void LateUpdate()
@@ -104,11 +106,18 @@ public class PlayerController : NetworkBehaviour, IDamageable
 		moveInput = val.Get<Vector2>();
 	}
 
+	Vector2 screenPos;
 	public void OnPoint(InputValue val)
+	{
+		Point(val.Get<Vector2>());
+	}
+
+	// Called every frame
+	public void Point(Vector2 input)
 	{
 		if (ApplicationManager.IsUIOpen) return;
 
-		Vector2 screenPos = val.Get<Vector2>();
+		screenPos = input;
 		// Clamp the position to the screen
 		screenPos = new(Math.Clamp(screenPos.x, 0, Screen.width), Math.Clamp(screenPos.y, 0, Screen.height));
 
@@ -121,6 +130,8 @@ public class PlayerController : NetworkBehaviour, IDamageable
 		if (crosshair)
 		{
 			crosshair.transform.position = worldPos;
+
+			crosshair.SetSize(Vector2.Distance(pointer.transform.position, crosshair.transform.position), shooter.currentFiringAngle / 2);
 		}
 	}
 

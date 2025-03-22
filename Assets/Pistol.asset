@@ -10,15 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7b6911e24843c14393cc9b16bd2e7f6, type: 3}
-  m_Name: TestWeapon
+  m_Name: Pistol
   m_EditorClassIdentifier: 
   damage: 1
   knockbackMultiplier: 1
-  speed: 10
-  firingArc: 5
+  speed: 100
   duration: 10
-  cooldown: 0.2
+  cooldown: 0.01
   drag: 0
+  isFullAuto: 0
+  firingAngle: {x: 1, y: 45}
+  recoil: 5
+  recovery: 1
+  isAmmoInfinte: 0
+  magazineSize: 10
+  reserveSize: 30
+  reloadTime: 2
+  canAim: 1
+  aimFOV: 45
+  aimDistanceMultiplier: 2
   isPersistent: 0
   maxCount: -1
   projectileBehaviour: 0
@@ -33,4 +43,6 @@ MonoBehaviour:
   pitchRange: {x: 0.9, y: 1.1}
   fireSounds:
   - {fileID: 8300000, guid: b29a0616c6a75aa4dbdeaa331707b9e9, type: 3}
+  reloadSound: {fileID: 8300000, guid: 58a6edb3b460b094987104163f516372, type: 3}
+  emptySound: {fileID: 8300000, guid: 8a55dad0314c8234f9263c793d2fd6c1, type: 3}
   prefab: {fileID: 7859072816149790941, guid: 1dab3b2bb89072a47b78e284b9fc2677, type: 3}

@@ -16,8 +16,6 @@ public class Projectile : MonoBehaviour
 	public Rigidbody2D rb;
 	[SelfFill(true)]
 	public DistanceJoint2D distanceJoint;
-	[SelfFill(true)]
-	public LineRenderer lineRenderer;
 
 	public virtual void Start()
 	{
@@ -27,10 +25,6 @@ public class Projectile : MonoBehaviour
 		bornTime = Time.time;
 
 		distanceJoint.enabled = data.IsFlail || data.IsOrbiter;
-		if (data.IsFlail) 
-		{ 
-			lineRenderer.enabled = data.IsFlail;
-		}
 
 		distanceJoint.connectedBody = owner.rb;
 		distanceJoint.distance = data.orbitDistance;
@@ -42,15 +36,6 @@ public class Projectile : MonoBehaviour
 		if (!data.isPersistent && Time.time >= bornTime + data.duration)
 		{
 			Destroy(gameObject);
-		}
-	}
-
-	public void LateUpdate()
-	{
-		if (data.IsFlail)
-		{
-			Vector3[] positions = new Vector3[] { transform.position, owner.transform.position };
-			lineRenderer.SetPositions(positions);
 		}
 	}
 

@@ -11,6 +11,11 @@ public class UIHealthbar : MonoBehaviour
 		healthbarBackground.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
 	}
 
+	public void SetHeight(float height)
+	{
+		healthbarBackground.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+	}
+
 	public void SetFillPercent(float percent)
 	{
 		healthbarFill.fillAmount = percent;

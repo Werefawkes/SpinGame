@@ -51,6 +51,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "40fd8220-36e4-4166-b712-8575e53f6e57",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "OpenMenu",
                     "type": "Button",
                     "id": "47f3dc09-903a-4ebf-b212-c1856002c4ae",
@@ -311,6 +320,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "253b9eea-67bc-4814-9097-258ded9dcf03",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "673e65f4-4666-4524-9238-b35158c7eff5",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
